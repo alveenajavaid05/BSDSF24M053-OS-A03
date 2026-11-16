@@ -18,5 +18,6 @@
 char* read_cmd(char* prompt, FILE* fp);
 char** tokenize(char* cmdline);
 int execute(char** arglist);
+int execute_condition(char** arglist);
 
 #endif // SHELL_H

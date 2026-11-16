@@ -177,6 +177,30 @@ int execute_single(char *arglist[])
     return 0;
 }
 
+int execute_condition(char *arglist[])
+{
+    pid_t pid = fork();
+
+    if (pid == -1) {
+        perror("fork");
+        return 1;
+    }
+
+    if (pid == 0) {
+        execvp(arglist[0], arglist);
+        perror("Condition failed");
+        exit(1);
+    }
+
+    int status;
+    waitpid(pid, &status, 0);
+
+    if (WIFEXITED(status))
+        return WEXITSTATUS(status);
+
+    return 1;
+}
+
 int execute(char *arglist[])
 {
     clean_jobs();
