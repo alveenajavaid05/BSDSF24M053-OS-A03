@@ -7,7 +7,7 @@ int history_numbers[HISTORY_SIZE];
 int history_count = 0;
 int total_commands = 0;
 
-void add_history(char *cmd)
+void save_history(char *cmd)
 {
     if (history_count == HISTORY_SIZE) {
         for (int i = 0; i < HISTORY_SIZE - 1; i++) {
@@ -62,7 +62,7 @@ int main()
             continue;
         }
 
-        add_history(cmdline);
+        save_history(cmdline);
 
         if (strcmp(cmdline, "history") == 0) {
             show_history();
